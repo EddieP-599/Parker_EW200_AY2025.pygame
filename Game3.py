@@ -7,7 +7,7 @@ import math
 HEIGHT = 600
 WIDTH = 1000
 NUM_METEORS = 10
-MIN_DISTANCE = 150  # Minimum distance between centers of meteors
+MIN_DISTANCE = 100  # Minimum distance between centers of meteors
 BULLET_SPEED = 10
 
 # Load images
@@ -36,10 +36,12 @@ class Bullet:
         self.owner = owner  # Track which player owns the bullet
 
     def update(self):
+        # Update bullet position based on angle and speed
         self.x += BULLET_SPEED * math.cos(math.radians(self.angle))
         self.y -= BULLET_SPEED * math.sin(math.radians(self.angle))
 
     def draw(self, surface):
+        # Rotate and draw the bullet on the screen
         rotated_image = pygame.transform.rotate(self.image, self.angle - 90)
         rect = rotated_image.get_rect(center=(self.x, self.y))
         surface.blit(rotated_image, rect.topleft)
@@ -95,10 +97,12 @@ def reset_game():
     global player1_rect, player2_rect, player1_angle, player2_angle
     global player1_alive, player2_alive, meteors, bullets
 
+    # Reset player 1 state
     player1_rect = player1_image.get_rect(topleft=(0, 0))
     player1_angle = 315  # Initial angle of player 1's ship
     player1_alive = True  # Track if player 1 is alive
 
+    # Reset player 2 state
     player2_rect = player2_image.get_rect(topleft=(WIDTH - 25, HEIGHT - 25))  # Start at bottom right
     player2_angle = 135  # Initial angle of player 2's ship
     player2_alive = True  # Track if player 2 is alive
@@ -122,7 +126,8 @@ def reset_game():
                 meteors.append((scaled_image, x, y))
                 break
 
-    bullets = []  # Reset bullets
+    # Reset bullets
+    bullets = []
 
 # Initialize game state
 reset_game()
